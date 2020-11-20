@@ -1,5 +1,4 @@
-public class position {
-
+public class position{
     private boolean guess;
     private boolean hitOrMiss;
     private boolean occupied;
@@ -7,13 +6,16 @@ public class position {
     private String direction;
 
 
-    position(){
+
+    position(int row, int col){
+
         guess = false;
         hitOrMiss = false;
         occupied = false;
         length = -1;
         direction = "UNDEF";
     }
+
 
     public boolean checkHitOrMiss(){
         return hitOrMiss;
