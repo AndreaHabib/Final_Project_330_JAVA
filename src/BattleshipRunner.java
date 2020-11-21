@@ -1,30 +1,62 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+
 
 public class BattleshipRunner extends Application {
 
-    public void start(Stage stage) {
-        try {
-            Label label1 = new Label("Hello");
-            Label label2 = new Label("World");
+    public void start(Stage primaryStage) {
+
+        Image b = createImage(Color.BLACK);
+        Image w = createImage(Color.WHITE);
 
 
-            stage.setScene(stage.getScene());
-            stage.show();
+        Image[][] grid = {
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b},
+                {b,b,b,b,b,b,b,b,b,b}
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        };
+
+        GridPane gridPane = new GridPane();
+
+        // for visualizing the different squares:
+        gridPane.setHgap(2);
+        gridPane.setVgap(2);
+        gridPane.setStyle("-fx-background-color: grey;");
+
+        for (int y = 0 ; y < grid.length ; y++) {
+            for (int x = 0 ; x < grid[y].length ; x++) {
+                ImageView imageView = new ImageView(grid[y][x]);
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                gridPane.add(imageView, x, y);
+            }
         }
-        GridPane grid = new GridPane();
-        Scene scene = new Scene(grid, 400, 400);
+        Scene scene = new Scene(gridPane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
+
+    private Image createImage(Color color) {
+        WritableImage image = new WritableImage(1, 1);
+        image.getPixelWriter().setColor(0, 0, color);
+        return image ;
+    }
+
 
 
     public static void main(String[] args) {
