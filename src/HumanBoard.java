@@ -1,4 +1,4 @@
-public class HumanBoard implements Board {
+public class HumanBoard extends Board {
     public void printBoard() {
 
     }

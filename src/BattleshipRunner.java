@@ -1,65 +1,36 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
 
 public class BattleshipRunner extends Application {
+    private Parent create(){
+        BorderPane root = new BorderPane();
+        root.setPrefSize(600, 800);
+        Board humanBoard = new HumanBoard();
+        Board computerBoard = new ComputerBoard();
+        VBox vbox = new VBox(50, humanBoard, computerBoard);
+        vbox.setAlignment(Pos.CENTER);
+        root.setCenter(vbox);
+        return root;
+    }
 
     public void start(Stage primaryStage) {
 
-        Image b = createImage(Color.BLACK);
-        Image w = createImage(Color.WHITE);
-
-
-        Image[][] grid = {
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b},
-                {b,b,b,b,b,b,b,b,b,b}
-
-        };
-
-        GridPane gridPane = new GridPane();
-
-        // for visualizing the different squares:
-        gridPane.setHgap(2);
-        gridPane.setVgap(2);
-        gridPane.setStyle("-fx-background-color: grey;");
-
-        for (int y = 0 ; y < grid.length ; y++) {
-            for (int x = 0 ; x < grid[y].length ; x++) {
-                ImageView imageView = new ImageView(grid[y][x]);
-                imageView.setFitWidth(50);
-                imageView.setFitHeight(50);
-                gridPane.add(imageView, x, y);
-            }
-        }
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(create());
+        primaryStage.setTitle("Battleship");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
-
-    private Image createImage(Color color) {
-        WritableImage image = new WritableImage(1, 1);
-        image.getPixelWriter().setColor(0, 0, color);
-        return image ;
-    }
-
-
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }

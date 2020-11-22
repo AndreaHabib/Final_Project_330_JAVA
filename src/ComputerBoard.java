@@ -1,6 +1,7 @@
-public class ComputerBoard implements Board {
+public class ComputerBoard extends Board {
     public void printBoard() {
 
     }
 
 }
+

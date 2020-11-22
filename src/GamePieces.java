@@ -1,4 +1,4 @@
-public class GamePieces {
+public abstract class GamePieces {
 
     private String direction;
     private int size;
