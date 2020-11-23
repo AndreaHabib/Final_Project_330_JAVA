@@ -6,24 +6,12 @@ public abstract class GamePieces {
     private int col;
     private String name;
 
-    public GamePieces(int size) {
+    public GamePieces() {
         this.size = size;
         row = -1;
         col = -1;
         direction = "UNDEF";
-
-        if(size == 4) {
-            name = "Carrot";
-        }
-        else if(size == 3) {
-            name = "Potato";
-        }
-        else if(size == 2) {
-            name = "Tomato";
-        }
-        else if(size == 1) {
-            name = "Pea";
-        }
+        name = "N/A";
     }
 
     public void setRows(int row) {

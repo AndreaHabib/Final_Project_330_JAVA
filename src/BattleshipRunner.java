@@ -3,6 +3,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -11,12 +12,12 @@ import javafx.stage.Stage;
 public class BattleshipRunner extends Application {
     private Parent create(){
         BorderPane root = new BorderPane();
-        root.setPrefSize(600, 800);
-        Board humanBoard = new HumanBoard();
-        Board computerBoard = new ComputerBoard();
-        VBox vbox = new VBox(50, humanBoard, computerBoard);
-        vbox.setAlignment(Pos.CENTER);
-        root.setCenter(vbox);
+        root.setPrefSize(1000, 750);
+        HumanBoard humanBoard = new HumanBoard();
+        ComputerBoard computerBoard = new ComputerBoard();
+        HBox hbox = new HBox(40, humanBoard, computerBoard);
+        hbox.setAlignment(Pos.CENTER);
+        root.setCenter(hbox);
         return root;
     }
 
@@ -25,7 +26,7 @@ public class BattleshipRunner extends Application {
         Scene scene = new Scene(create());
         primaryStage.setTitle("Battleship");
         primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

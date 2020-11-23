@@ -18,7 +18,12 @@ public class position extends Rectangle {
         this.x= x;
         this.y =y;
         this.board = board;
-        setFill(Color.BLUE);
+        if(board.getIsEnemy() == false){
+            setFill(Color.RED);
+        }
+        else{
+            setFill(Color.BLUE);
+        }
         setStroke(Color.BLACK);
         guess = false;
         hitOrMiss = false;
