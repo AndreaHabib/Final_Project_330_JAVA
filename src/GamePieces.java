@@ -1,10 +1,10 @@
 public abstract class GamePieces {
 
-    private String direction;
-    private int size;
-    private int row;
-    private int col;
-    private String name;
+    protected String direction;
+    protected int size;
+    protected int row;
+    protected int col;
+    protected String name;
 
     public GamePieces() {
         this.size = size;
@@ -12,6 +12,14 @@ public abstract class GamePieces {
         col = -1;
         direction = "UNDEF";
         name = "N/A";
+    }
+
+    public GamePieces(String name) {
+        this.size = size;
+        row = -1;
+        col = -1;
+        direction = "UNDEF";
+        this.name = name;
     }
 
     public void setRows(int row) {

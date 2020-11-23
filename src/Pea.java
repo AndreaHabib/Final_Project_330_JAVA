@@ -1,9 +1,4 @@
 public class Pea extends GamePieces{
-    private String direction;
-    private int size;
-    private int row;
-    private int col;
-    private String name;
 
     public Pea() {
         this.size = 1;
@@ -12,4 +7,5 @@ public class Pea extends GamePieces{
         direction = "UNDEF";
         name = "Pea";
     }
+
 }
