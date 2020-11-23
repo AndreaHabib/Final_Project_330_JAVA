@@ -1,33 +1,37 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+
 public class BattleshipRunner extends Application {
-
-    public void start(Stage stage) {
-        try {
-            Label label1 = new Label("Hello");
-            Label label2 = new Label("World");
-
-
-            stage.setScene(stage.getScene());
-            stage.show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        GridPane grid = new GridPane();
-        Scene scene = new Scene(grid, 400, 400);
+    private Parent create(){
+        BorderPane root = new BorderPane();
+        root.setPrefSize(1000, 750);
+        HumanBoard humanBoard = new HumanBoard();
+        ComputerBoard computerBoard = new ComputerBoard();
+        HBox hbox = new HBox(40, humanBoard, computerBoard);
+        hbox.setAlignment(Pos.CENTER);
+        root.setCenter(hbox);
+        return root;
     }
 
+    public void start(Stage primaryStage) {
+
+        Scene scene = new Scene(create());
+        primaryStage.setTitle("Battleship");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }

@@ -1,13 +1,30 @@
-public class position {
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+public class position extends Rectangle {
 
     private boolean guess;
     private boolean hitOrMiss;
     private boolean occupied;
     private int length;
     private String direction;
+    private int x;
+    private int y;
+    private Board board;
 
 
-    position(){
+    public position(int x, int y, Board board){
+        super(40, 40);
+        this.x= x;
+        this.y =y;
+        this.board = board;
+        if(board.getIsEnemy() == false){
+            setFill(Color.RED);
+        }
+        else{
+            setFill(Color.BLUE);
+        }
+        setStroke(Color.BLACK);
         guess = false;
         hitOrMiss = false;
         occupied = false;

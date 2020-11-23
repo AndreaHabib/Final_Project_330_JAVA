@@ -1,3 +1,5 @@
-public interface Board {
-    public void printBoard();
+public interface Board{
+
+    public boolean getIsEnemy();
+
 }
