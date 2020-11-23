@@ -71,4 +71,10 @@ public class position extends Rectangle {
     public void setDirection(String direction) {
         this.direction = direction;
     }
+
+    public void changeColor(int x, int y){
+        if(x == this.x && y == this.y){
+            setFill(Color.YELLOW);
+        }
+    }
 }

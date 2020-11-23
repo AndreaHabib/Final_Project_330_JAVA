@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 public class ComputerBoard extends Parent implements Board{
 
     private VBox rows = new VBox();
-    private final boolean isEmemy = true;
+    private final boolean isEnemy = true;
     public int numOfShips = 5;
     public final int x = 10;
     public final int y = 10;
@@ -24,7 +24,7 @@ public class ComputerBoard extends Parent implements Board{
 
     @Override
     public boolean getIsEnemy() {
-        return isEmemy;
+        return isEnemy;
     }
 }
 
