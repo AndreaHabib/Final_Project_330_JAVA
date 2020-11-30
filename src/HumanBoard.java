@@ -14,6 +14,7 @@ public class HumanBoard extends Parent implements Board{
     public int numOfShips = 4;
     public final int x = 10;
     public final int y = 10;
+    public int addPiece = 0;
 
     public HumanBoard(){
 
@@ -36,7 +37,8 @@ public class HumanBoard extends Parent implements Board{
         return (position) ((HBox) rows.getChildren().get(y)).getChildren().get(x);
     }
 
-    public boolean setPiece(int row, int col, String Dir, GamePieces piece){
+    @Override
+    public boolean setPiece(int row, int col, String Dir, GamePieces piece) throws IndexOutOfBoundsException{
 
         int size = piece.getSize();
         int mode = 0;
@@ -44,29 +46,36 @@ public class HumanBoard extends Parent implements Board{
         try {
             this.isValidPosition(row+size, col+size);
         } catch (IndexOutOfBoundsException e){
-            mode = 1;
+            if(row >= 10 || col >= 10 || row < 0 || col < 0) {
+                throw new IndexOutOfBoundsException("Invalid Location");
+            }
+            else {
+                mode = 1;
+            }
         }
 
         if(mode == 0) {
             if (Dir == "VERTICAL") {
                 for (int i = 0; i < size; i++) {
-                    if (!this.positionValid(row, col + i, piece)) {
+                    if (!this.positionValid(row, col + i)) {
                         return false;
                     }
                 }
                 for (int i = 0; i < size; i++) {
                     this.getPosition(row, col + i).changeColor(row, col + i, 3);
                     this.getPosition(row, col + i).setOccupied(true);
+                    this.addPiece++;
                 }
             } else if (Dir == "HORIZONTAL") {
                 for (int i = 0; i < size; i++) {
-                    if (!this.positionValid(row + i, col, piece)) {
+                    if (!this.positionValid(row + i, col)) {
                         return false;
                     }
                 }
                 for (int i = 0; i < size; i++) {
                     this.getPosition(row + i, col).changeColor(row + i, col, 3);
                     this.getPosition(row + i, col).setOccupied(true);
+                    this.addPiece++;
                 }
 
             }
@@ -75,23 +84,25 @@ public class HumanBoard extends Parent implements Board{
 
             if (Dir == "VERTICAL") {
                 for (int i = size-1; i >= 0; i--) {
-                    if (!this.positionValid(row, col - i, piece)) {
+                    if (!this.positionValid(row, col - i)) {
                         return false;
                     }
                 }
                 for (int i = size-1; i >= 0; i--) {
                     this.getPosition(row, col - i).changeColor(row, col - i, 3);
                     this.getPosition(row, col - i).setOccupied(true);
+                    this.addPiece++;
                 }
             } else if (Dir == "HORIZONTAL") {
                 for (int i = size-1; i >= 0; i--) {
-                    if (!this.positionValid(row - i, col, piece)) {
+                    if (!this.positionValid(row - i, col)) {
                         return false;
                     }
                 }
                 for (int i = size-1; i >= 0; i--) {
                     this.getPosition(row - i, col).changeColor(row - i, col, 3);
                     this.getPosition(row - i, col).setOccupied(true);
+                    this.addPiece++;
                 }
 
             }
@@ -102,13 +113,52 @@ public class HumanBoard extends Parent implements Board{
         return true;
     }
 
-    public boolean positionValid(int row, int col, GamePieces piece){
+    public boolean positionValid(int row, int col){
         if(this.getPosition(row, col).getOccupied()){
             return false;
         }
         else {
             return true;
         }
+    }
+
+    @Override
+    public int attack(int row, int col, Board other) throws IndexOutOfBoundsException {
+        try {
+            other.positionValid(row, col);
+        } catch (IndexOutOfBoundsException e){
+            if(row >= 10 || col >= 10 || row < 0 || col < 0) {
+                throw new IndexOutOfBoundsException("Invalid Location");
+            }
+        }
+        if(other.getPosition(row, col).getOccupied() && !other.getPosition(row, col).isGuess()) {
+            other.getPosition(row, col).setGuess(true);
+            other.getPosition(row, col).setHitOrMiss(true);
+            other.getPosition(row, col).changeColor(row, col, 0);
+            other.setAddPiece(other.getAddPiece()-1);
+            return 1;
+        }
+        else if(other.getPosition(row, col).isGuess()){
+            return 2;
+
+        }
+        else if(!other.getPosition(row, col).getOccupied()) {
+            other.getPosition(row, col).setGuess(true);
+            other.getPosition(row, col).setHitOrMiss(false);
+            other.getPosition(row, col).changeColor(row, col, 1);
+            return 3;
+        }
+
+        return 0;
+
+    }
+
+    public int getAddPiece() {
+        return addPiece;
+    }
+
+    public void setAddPiece(int addPiece) {
+        this.addPiece = addPiece;
     }
 
     @Override

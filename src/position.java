@@ -6,7 +6,6 @@ public class position extends Rectangle {
     private boolean guess;
     private boolean hitOrMiss;
     private boolean occupied;
-    private int length;
     private String direction;
     private int x;
     private int y;
@@ -19,16 +18,15 @@ public class position extends Rectangle {
         this.y =y;
         this.board = board;
         if(board.getIsEnemy() == false){
-            setFill(Color.RED);
+            setFill(Color.WHITE);
         }
         else{
-            setFill(Color.BLUE);
+            setFill(Color.WHITESMOKE);
         }
         setStroke(Color.BLACK);
         guess = false;
         hitOrMiss = false;
         occupied = false;
-        length = -1;
         direction = "UNDEF";
     }
 
@@ -40,9 +38,7 @@ public class position extends Rectangle {
         return guess;
     }
 
-    public int getLength() {
-        return length;
-    }
+
 
     public String getDirection() {
         return direction;
@@ -64,10 +60,6 @@ public class position extends Rectangle {
         this.occupied = occupied;
     }
 
-    public void setLength(int length) {
-        this.length = length;
-    }
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
@@ -82,7 +74,7 @@ public class position extends Rectangle {
                     break;
                 //Miss
                 case 1:
-                    setFill(Color.BLACK);
+                    setFill(Color.GRAY);
                     break;
                 default:
                     setFill(Color.YELLOW);
