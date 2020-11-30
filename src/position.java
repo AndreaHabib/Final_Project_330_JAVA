@@ -72,9 +72,22 @@ public class position extends Rectangle {
         this.direction = direction;
     }
 
-    public void changeColor(int x, int y){
+    public void changeColor(int x, int y, int action){
         if(x == this.x && y == this.y){
-            setFill(Color.YELLOW);
+
+            switch(action) {
+                //hit
+                case 0:
+                    setFill(Color.RED);
+                    break;
+                //Miss
+                case 1:
+                    setFill(Color.BLACK);
+                    break;
+                default:
+                    setFill(Color.YELLOW);
+
+            }
         }
     }
 }
