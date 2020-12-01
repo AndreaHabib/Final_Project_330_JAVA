@@ -56,6 +56,7 @@ public class position extends Rectangle {
     }
 
     public void changeColor(int x, int y, int action){
+
         if(x == this.x && y == this.y){
 
             switch(action) {

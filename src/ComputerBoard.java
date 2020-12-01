@@ -2,13 +2,10 @@ import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.sql.BatchUpdateException;
-
 public class ComputerBoard extends Parent implements Board{
 
     private VBox rows = new VBox();
     private final boolean isEnemy = true;
-    public int numOfShips = 4;
     public final int x = 10;
     public final int y = 10;
     public int addPiece = 0;

@@ -1,17 +1,11 @@
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Cell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class HumanBoard extends Parent implements Board{
 
     private VBox rows = new VBox();
     private final boolean isEnemy = false;
-    public int numOfShips = 4;
     public final int x = 10;
     public final int y = 10;
     public int addPiece = 0;

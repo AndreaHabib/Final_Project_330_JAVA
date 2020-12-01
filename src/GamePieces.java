@@ -49,15 +49,6 @@ public abstract class GamePieces {
         return name;
     }
 
-    public boolean isDirectSet(){
-        if(direction == "UNDEF"){
-            return false;
-        }
-        else
-            return true;
-
-    }
-
     public String toString(){
         String s = "";
         s += "Food piece: " + getName() + " has position of ("+ getRow() + ", " + getCol() + ")";

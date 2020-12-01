@@ -363,8 +363,8 @@ public class BattleshipRunner extends Application {
 
         Image image = new Image("/menu.png");
         ImageView img = new ImageView(image);
-        img.setFitHeight(650);
-        img.setFitWidth(650);
+        img.setFitHeight(400);
+        img.setFitWidth(400);
 
 
 
@@ -383,11 +383,15 @@ public class BattleshipRunner extends Application {
 
         buttons.setAlignment(Pos.CENTER);
 
-        VBox vbox = new VBox(40, welcome, buttons, Cheat, cheat);
+        menu.setStyle("-fx-background-color: #B5D3E7");
+
+        VBox vbox = new VBox(40, welcome, img, buttons, Cheat, cheat);
         vbox.setAlignment(Pos.CENTER);
         vbox.setStyle("-fx-background-image: url('/menu.png');" +
-                "-fx-background-size: 650 500;" +
-                "-fx-background-position: center center;");
+                "-fx-background-repeat: stretch;" +
+                "-fx-background-size: 400 300;" +
+                "-fx-background-position: center center;"
+        );
         menu.setCenter(vbox);
 
 
@@ -395,9 +399,27 @@ public class BattleshipRunner extends Application {
     }
 
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
 
         Scene scene = new Scene(mainMenu());
+
+        nextScene.setStyle(
+                "-fx-background-color: black;"
+                + "-fx-text-fill: white;"
+                + "-fx-padding: 6px 20px;"
+        );
+
+        startGame.setStyle(
+                "-fx-background-color: black;"
+                        + "-fx-text-fill: white;"
+                        + "-fx-padding: 6px 20px;"
+        );
+
+        exit.setStyle(
+                "-fx-background-color: red;"
+                        + "-fx-text-fill: white;"
+                        + "-fx-padding: 6px 20px;"
+        );
 
         startGame.setOnAction( e -> {
             if (cheatON.isSelected()) {
