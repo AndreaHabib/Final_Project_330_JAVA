@@ -1,6 +1,4 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,9 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -46,8 +42,6 @@ public class BattleshipRunner extends Application {
 
     ToggleButton cheatON = new ToggleButton("On");
     ToggleButton cheatOFF = new ToggleButton("Off");
-    ToggleButton vertical = new ToggleButton("Vertical");
-    ToggleButton horizontal = new ToggleButton("Horizontal");
     ToggleGroup groupCheat = new ToggleGroup();
 
 
@@ -57,9 +51,9 @@ public class BattleshipRunner extends Application {
         int loop = 0;
         while(loop != 4) {
             try {
-                int CX = ((int) (Math.random() * (9)) - 0);
-                int CY = ((int) (Math.random() * (9)) - 0);
-                int rand = ((int) (Math.random() * (4)) - 0);
+                int CX = ((int) (Math.random() * (10)) - 0);
+                int CY = ((int) (Math.random() * (10)) - 0);
+                int rand = ((int) (Math.random() * (5)) - 0);
                 String CDIR = direc[rand];
                 if (CDIR == "VERTICAL") {
                     arr1[loop].setDirection("VERTICAL");
@@ -67,7 +61,7 @@ public class BattleshipRunner extends Application {
                 } else if (CDIR == "HORIZONTAL") {
                     arr1[loop].setDirection("HORIZONTAL");
                 }
-                if (computerBoard.setPiece(CX, CY, arr[loop].getDirection(), arr[loop])) {
+                if (computerBoard.setPiece(CX, CY, arr1[loop].getDirection(), arr1[loop])) {
                     loop++;
                 }
             }
@@ -119,21 +113,23 @@ public class BattleshipRunner extends Application {
         HBox input = new HBox(50, input1, input2, submit);
 
         submit.setOnAction(e -> {
-
-            if(humanBoard.getAddPiece() != 0) {
+            int turn = 1;
+            if(humanBoard.getAddPiece() != 0 && turn == 1) {
                 try {
-                    int y = Integer.parseInt(rows.getText());
-                    int x = Integer.parseInt(columns.getText());
-
-
                     try {
-                        int attack = humanBoard.attack(x, y, computerBoard);
+                        int y, x, attack;
+                        y = Integer.parseInt(rows.getText());
+                        x = Integer.parseInt(columns.getText());
+                        attack = humanBoard.attack(x, y, computerBoard);
                         if (attack == 3) {
                             Miss.setText("Miss!");
+                            turn = 0;
                         } else if (attack == 1) {
                             Miss.setText("Hit!");
+                            turn = 0;
                         } else if (attack == 2) {
                             Miss.setText(("Already Guess!"));
+                            turn = 1;
                         } else if (attack == 0) {
                             System.exit(-1);
                         }
@@ -144,25 +140,26 @@ public class BattleshipRunner extends Application {
                     Miss.setText("Invalid Location");
                 }
             }
-            else {
+            else if(turn != 0) {
                 isWin.setText("Computer is the winner!");
                 nextScene.setText("Play Again!");
                 nextScene.setDisable(false);
                 submit.setDisable(true);
 
             }
-            if(computerBoard.getAddPiece() != 0) {
+            if(computerBoard.getAddPiece() != 0 && turn == 0) {
                 try {
+                    turn = 1;
                     int CXG = 0, CYG = 0;
                     int attack = 0, choose = 0;
                     do {
                         if(TCX == 0) {
-                            CXG = ((int) (Math.random() * (9)) - 0);
-                            CYG = ((int) (Math.random() * (9)) - 0);
+                            CXG = ((int) (Math.random() * (10)) - 0);
+                            CYG = ((int) (Math.random() * (10)) - 0);
                             attack = computerBoard.attack(CXG, CYG, humanBoard);
                         }
                         else {
-                            choose = ((int) (Math.random() * 4) + 1);
+                            choose = ((int) (Math.random() * 5) + 1);
                             if(choose == 1) {
                                 CXG = TCX;
                                 CYG = TCY + 1;
@@ -186,7 +183,7 @@ public class BattleshipRunner extends Application {
                                 TCY = 0;
                             }
                         }
-                    } while(attack != 1 && attack != 3);
+                    } while(attack == 2);
 
                     if(attack == 1) {
                         TCX = CXG;
@@ -202,7 +199,7 @@ public class BattleshipRunner extends Application {
 
                 }
             }
-            else {
+            else if(turn != 1) {
                 isWin.setText("Human is the winner!");
                 nextScene.setText("Play Again!");
                 nextScene.setDisable(false);
