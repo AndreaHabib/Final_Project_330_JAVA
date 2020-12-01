@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -30,8 +31,7 @@ public class BattleshipRunner extends Application {
 
     int piece = 0;
 
-    Player humanPlayer = new HumanPlayer(Hpea, Hcarrot, Hpotato, Htomato);
-    Player computerPlayer = new ComputerPlayer(Cpea, Ccarrot, Cpotato, Ctomato);
+    int TCX, TCY;
 
     HumanBoard humanBoard = new HumanBoard();
     ComputerBoard computerBoard = new ComputerBoard();
@@ -76,8 +76,8 @@ public class BattleshipRunner extends Application {
             }
         }
 
-        BorderPane setGame = new BorderPane();
-        setGame.setPrefSize(1200, 900);
+        BorderPane game = new BorderPane();
+        game.setPrefSize(1200, 900);
 
         Label user = new Label("User");
         Label computer = new Label("Computer");
@@ -153,12 +153,49 @@ public class BattleshipRunner extends Application {
             }
             if(computerBoard.getAddPiece() != 0) {
                 try {
-                    int attack;
+                    int CXG = 0, CYG = 0;
+                    int attack = 0, choose = 0;
                     do {
-                        int CXG = ((int) (Math.random() * (9)) - 0);
-                        int CYG = ((int) (Math.random() * (9)) - 0);
-                        attack = computerBoard.attack(CXG, CYG, humanBoard);
+                        if(TCX == 0) {
+                            CXG = ((int) (Math.random() * (9)) - 0);
+                            CYG = ((int) (Math.random() * (9)) - 0);
+                            attack = computerBoard.attack(CXG, CYG, humanBoard);
+                        }
+                        else {
+                            choose = ((int) (Math.random() * 4) + 1);
+                            if(choose == 1) {
+                                CXG = TCX;
+                                CYG = TCY + 1;
+                            }
+                            else if(choose == 2) {
+                                CXG = TCX + 1;
+                                CYG = TCY;
+                            }
+                            else if(choose == 3) {
+                                CXG = TCX;
+                                CYG = TCY - 1;
+                            }
+                            else if(choose == 4) {
+                                CXG = TCX - 1;
+                                CYG = TCY;
+                            }
+                            attack = computerBoard.attack(CXG, CYG, humanBoard);
+
+                            if(attack == 3) {
+                                TCX = 0;
+                                TCY = 0;
+                            }
+                        }
                     } while(attack != 1 && attack != 3);
+
+                    if(attack == 1) {
+                        TCX = CXG;
+                        TCY = CYG;
+                    }
+                    else {
+                        TCX = 0;
+                        TCY = 0;
+                    }
 
 
                 } catch (IndexOutOfBoundsException err1) {
@@ -183,10 +220,12 @@ public class BattleshipRunner extends Application {
 
         buttons.setAlignment(Pos.CENTER);
 
+        game.setStyle("-fx-background-color: #B5D3E7");
+
         VBox vbox  = new VBox(30,hbox1, sidebyside, input, isWin, buttons, Miss);
         vbox.setAlignment(Pos.CENTER);
-        setGame.setCenter(vbox);
-        return setGame;
+        game.setCenter(vbox);
+        return game;
 
 
     }
@@ -208,6 +247,7 @@ public class BattleshipRunner extends Application {
         Label row = new Label("Row");
         Label column = new Label("Column");
         Label direction = new Label("Direction");
+        Label table = new Label("Prepare Your Table!");
         Button submit = new Button("Submit");
         Text isOccupied = new Text();
         Text pieceName = new Text();
@@ -294,7 +334,9 @@ public class BattleshipRunner extends Application {
 
         buttons.setAlignment(Pos.CENTER);
 
-        VBox vbox  = new VBox(30,hbox1, sidebyside, pieceName, input, buttons, isOccupied);
+        setGame.setStyle("-fx-background-color: #B5D3E7");
+
+        VBox vbox  = new VBox(30, table, hbox1, sidebyside, pieceName, input, buttons, isOccupied);
         vbox.setAlignment(Pos.CENTER);
         setGame.setCenter(vbox);
         return setGame;

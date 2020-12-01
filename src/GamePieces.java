@@ -22,23 +22,11 @@ public abstract class GamePieces {
         this.name = name;
     }
 
-    public void setRows(int row) {
-        this.row = row;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
-
     public void setDirection(String direction) {
         if(direction != "UNDEF" && direction != "VERTICAL" && direction != "HORIZONTAL") {
             throw new IllegalArgumentException("Direction is Invalid, must be UNDEF, VERTICAL, or HORIZONTAL");
         }
         this.direction = direction;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public int getCol() {
@@ -68,13 +56,6 @@ public abstract class GamePieces {
         else
             return true;
 
-    }
-
-    public boolean isPositionSet(){
-        if(row == -1 || col == -1){
-            return false;
-        }
-        else return true;
     }
 
     public String toString(){

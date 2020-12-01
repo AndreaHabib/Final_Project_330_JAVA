@@ -43,6 +43,21 @@ public class HumanBoard extends Parent implements Board{
         int size = piece.getSize();
         int mode = 0;
 
+        int pieceName = 7;
+
+        if (piece.getName() == "Carrot") {
+            pieceName = 3;
+        }
+        else if(piece.getName() == "Potato") {
+            pieceName = 4;
+        }
+        else if(piece.getName() == "Tomato") {
+            pieceName = 5;
+        }
+        else if(piece.getName() == "Pea") {
+            pieceName = 6;
+        }
+
         try {
             this.isValidPosition(row+size, col+size);
         } catch (IndexOutOfBoundsException e){
@@ -62,7 +77,7 @@ public class HumanBoard extends Parent implements Board{
                     }
                 }
                 for (int i = 0; i < size; i++) {
-                    this.getPosition(row, col + i).changeColor(row, col + i, 3);
+                    this.getPosition(row, col + i).changeColor(row, col + i, pieceName);
                     this.getPosition(row, col + i).setOccupied(true);
                     this.addPiece++;
                 }
@@ -73,7 +88,7 @@ public class HumanBoard extends Parent implements Board{
                     }
                 }
                 for (int i = 0; i < size; i++) {
-                    this.getPosition(row + i, col).changeColor(row + i, col, 3);
+                    this.getPosition(row + i, col).changeColor(row + i, col, pieceName);
                     this.getPosition(row + i, col).setOccupied(true);
                     this.addPiece++;
                 }
@@ -89,7 +104,7 @@ public class HumanBoard extends Parent implements Board{
                     }
                 }
                 for (int i = size-1; i >= 0; i--) {
-                    this.getPosition(row, col - i).changeColor(row, col - i, 3);
+                    this.getPosition(row, col - i).changeColor(row, col - i, pieceName);
                     this.getPosition(row, col - i).setOccupied(true);
                     this.addPiece++;
                 }
@@ -100,7 +115,7 @@ public class HumanBoard extends Parent implements Board{
                     }
                 }
                 for (int i = size-1; i >= 0; i--) {
-                    this.getPosition(row - i, col).changeColor(row - i, col, 3);
+                    this.getPosition(row - i, col).changeColor(row - i, col, pieceName);
                     this.getPosition(row - i, col).setOccupied(true);
                     this.addPiece++;
                 }
