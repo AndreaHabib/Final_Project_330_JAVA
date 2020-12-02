@@ -1,3 +1,4 @@
+//all imports used
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -15,11 +16,13 @@ import javafx.stage.Stage;
 
 public class BattleshipRunner extends Application {
 
+    //instantiate all human pieces
     GamePieces Hpea = new Pea();
     GamePieces Hcarrot = new Carrot();
     GamePieces Hpotato = new Potato();
     GamePieces Htomato = new Tomato();
 
+    //instantiate all computer pieces
     GamePieces Cpea = new Pea();
     GamePieces Ccarrot = new Carrot();
     GamePieces Cpotato = new Potato();

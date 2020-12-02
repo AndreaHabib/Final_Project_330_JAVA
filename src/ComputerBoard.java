@@ -183,9 +183,5 @@ public class ComputerBoard extends Parent implements Board{
         this.addPiece = addPiece;
     }
 
-    @Override
-    public boolean getIsEnemy() {
-        return isEnemy;
-    }
 }
 
