@@ -32,7 +32,7 @@ public class BattleshipRunner extends Application {
     int piece = 0;
 
     //temporary X and Y coordinates. Used by computer to remember last position if hit
-    int TCX, TCY;
+    int TCX = 0, TCY = 0, T1 = 0, T2 = 0;
 
     //instantiate human and computer boards
     HumanBoard humanBoard = new HumanBoard();
@@ -204,8 +204,10 @@ public class BattleshipRunner extends Application {
                     if(attack == 1) { //if hit, memorize x and y
                         TCX = CXG;
                         TCY = CYG;
+                        T1 = CXG;
+                        T2 = CYG;
                     }
-                    else { //else set to 0
+                    else {
                         TCX = 0;
                         TCY = 0;
                     }

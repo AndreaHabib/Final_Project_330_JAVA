@@ -93,12 +93,12 @@ public class ComputerBoard extends Parent implements Board{
         //Checking if game piece will fit in default orientation (down and right)
         //If game piece will not fit set to other orientation (up and left)
         try {
-            this.isValidPosition(row+size, col+size); //checking if game piece will go out of bounds
+            this.isValidPosition(row + size, col + size); //checking if game piece will go out of bounds
         } catch (IndexOutOfBoundsException e){
             if(row >= 10 || col >= 10 || row < 0 || col < 0) {
                 throw new IndexOutOfBoundsException("Invalid Location");
             }
-            else {
+            else if (row + size >= 9 && col + size >= 9 || (row + size >= 9 && col + size <= 9 && piece.getDirection() != "VERTICAL") || (row + size <= 9 && col + size >= 9 && piece.getDirection() != "HORIZONTAL")){
                 mode = 1;
             }
         }
