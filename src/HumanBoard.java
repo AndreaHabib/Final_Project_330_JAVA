@@ -96,7 +96,7 @@ public class HumanBoard extends Parent implements Board{
             if(row >= 10 || col >= 10 || row < 0 || col < 0) {
                 throw new IndexOutOfBoundsException("Invalid Location");
             }
-            else if (row + size >= 9 && col + size >= 9 || (row + size >= 9 && col + size <= 9 && piece.getDirection() != "VERTICAL") || (row + size <= 9 && col + size >= 9 && piece.getDirection() != "HORIZONTAL")){
+            else if (row + size > 9 && col + size > 9 || (row + size >= 9 && col + size <= 9 && piece.getDirection() != "VERTICAL") || (row + size <= 9 && col + size >= 9 && piece.getDirection() != "HORIZONTAL")){
                 mode = 1;
             }
         }

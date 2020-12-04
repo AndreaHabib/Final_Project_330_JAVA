@@ -76,6 +76,8 @@ public class position extends Rectangle {
         this.hitOrMiss = hitOrMiss;
     }
 
+    public boolean getHitOrMiss() {return this.hitOrMiss; }
+
     /**
      * Method to set the occupation state of the position on the grid.
      *
