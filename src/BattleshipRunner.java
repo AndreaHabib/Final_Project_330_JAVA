@@ -62,7 +62,7 @@ public class BattleshipRunner extends Application {
     ToggleButton easy = new ToggleButton("Easy");
     ToggleButton hard = new ToggleButton("Hard");
     ToggleGroup groupDiff = new ToggleGroup();
-    int DIFFICULTY = -1;
+    int DIFFICULTY = 2;
 
     //Scene where the user and computer play against each other
     private Parent createGame() {
@@ -449,6 +449,10 @@ public class BattleshipRunner extends Application {
                 }
                 if (piece == 4) { //if final piece, disable submit and enable nextScene for the user to start the game
                     submit.setDisable(true);
+                    vertical.setDisable(true);
+                    horizontal.setDisable(true);
+                    rows.setDisable(true);
+                    columns.setDisable(true);
                     piece = 0;
                     nextScene.setDisable(false);
 
