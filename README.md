@@ -3,3 +3,7 @@
 ## Demo:
 
 ![](demo.gif)
+
+## UML Diagram:
+
+![](FoodBattle.png)
