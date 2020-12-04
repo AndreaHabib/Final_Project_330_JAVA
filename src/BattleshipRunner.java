@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 
 //Runner
 public class BattleshipRunner extends Application {
@@ -34,6 +37,8 @@ public class BattleshipRunner extends Application {
     //temporary X and Y coordinates. Used by computer to remember last position if hit
     int TCX = -1, TCY = -1;
     int CXG = 0, CYG = 0; //computer x and y
+    ArrayList<position> positionArrayList = new ArrayList<>();
+    Random rand = new Random();
 
     //instantiate human and computer boards
     HumanBoard humanBoard = new HumanBoard();
@@ -157,15 +162,7 @@ public class BattleshipRunner extends Application {
                     Miss.setText("Invalid Location");
                 }
             }
-            else if(turn != 0) { //if pieces on board = 0, computer wins
-                isWin.setText("Computer is the winner!"); //print winner message
-                nextScene.setText("Play Again!"); //change text to Play Again. Refer to line 471
-                rows.setDisable(true);
-                columns.setDisable(true);
-                nextScene.setDisable(false); //enable button
-                submit.setDisable(true); //disable button
 
-            }
             if(computerBoard.getAddPiece() != 0 && turn == 0) { //same process for computer as human, except input is random generated
                     turn = 1; //Computer only attacks when successful, therefore turn = 1.
                     int attack = 0, choose = 0;
@@ -183,9 +180,8 @@ public class BattleshipRunner extends Application {
                                if(((CXG + 1) <= 9)) {//down
                                    if(!(humanBoard.getPosition(CYG, CXG + 1).isGuess())) {
                                        System.out.println("Down");
-                                       CXG = TCX + 1;
-                                       CYG = TCY;
-                                       choose = 0;
+                                       positionArrayList.add(humanBoard.getPosition(CYG, CXG + 1));
+                                       choose = 1;
                                    }
                                    else if (!(humanBoard.getPosition(CYG, CXG + 1).getHitOrMiss()) || (humanBoard.getPosition(CYG, CXG + 1).getHitOrMiss())) {
                                        choose = 1;
@@ -195,12 +191,14 @@ public class BattleshipRunner extends Application {
                                        TCY = -1;
                                    }
                                }
-                               if(((CXG - 1) > -1) && choose == 1) {//up
+                               else {
+                                   choose = 1;
+                               }
+                                if(((CXG - 1) > -1) && choose == 1) {//up
                                    if(!(humanBoard.getPosition(CYG, CXG - 1).isGuess())) {
                                        System.out.println("Up");
-                                       CXG = TCX - 1;
-                                       CYG = TCY;
-                                       choose = 1;
+                                       positionArrayList.add(humanBoard.getPosition(CYG, CXG - 1));
+                                       choose = 2;
                                    }
                                    else if (!(humanBoard.getPosition(CYG, CXG - 1).getHitOrMiss()) || (humanBoard.getPosition(CYG, CXG - 1).getHitOrMiss())) {
                                        choose = 2;
@@ -210,12 +208,14 @@ public class BattleshipRunner extends Application {
                                        TCY = -1;
                                    }
                                }
+                               else {
+                                   choose = 2;
+                               }
                                if(((CYG + 1) <= 9) && choose == 2) {//right
                                    if(!(humanBoard.getPosition(CYG+1, CXG).isGuess())) {
                                        System.out.println("Right");
-                                       CXG = TCX;
-                                       CYG = TCY + 1;
-                                       choose = 2;
+                                       positionArrayList.add(humanBoard.getPosition(CYG + 1, CXG));
+                                       choose = 3;
                                    }
                                    else if (!(humanBoard.getPosition(CYG + 1, CXG).getHitOrMiss()) || (humanBoard.getPosition(CYG + 1, CXG).getHitOrMiss())) {
                                        choose = 3;
@@ -225,12 +225,13 @@ public class BattleshipRunner extends Application {
                                        TCY = -1;
                                    }
                                }
+                               else {
+                                   choose = 3;
+                               }
                                if(((CYG - 1) > -1) && choose == 3) {//left
                                    if (!(humanBoard.getPosition(CYG - 1, CXG).isGuess())){
                                        System.out.println("Left");
-                                       CXG = TCX;
-                                       CYG = TCY - 1;
-                                       choose = 3;
+                                       positionArrayList.add(humanBoard.getPosition(CYG - 1, CXG));
                                     }
                                    else if (!(humanBoard.getPosition(CYG - 1, CXG).getHitOrMiss()) || (humanBoard.getPosition(CYG - 1, CXG).getHitOrMiss())) {
                                        choose = 4;
@@ -240,11 +241,52 @@ public class BattleshipRunner extends Application {
                                        TCY = -1;
                                    }
                                }
-                               if(choose == 4){
+                               if(positionArrayList.size() == 0){
                                     TCX = -1;
                                     TCY = -1;
                                 }
-                                attack = computerBoard.attack(CYG, CXG, humanBoard); //attack
+                               else {
+                                   int index = rand.nextInt(positionArrayList.size());
+                                   System.out.println(index);
+                                   for(int i = 0; i < positionArrayList.size(); i++) {
+                                       System.out.println(positionArrayList.get(i));
+                                   }
+                                   if(((CXG + 1) <= 9)) {//down
+                                       if (positionArrayList.get(index) == humanBoard.getPosition(CYG, CXG + 1)) {
+                                           System.out.println("down");
+                                           CXG = TCX + 1;
+                                           CYG = TCY;
+                                       }
+                                   }
+                                   if(((CXG - 1) > -1)) {
+                                       if (positionArrayList.get(index) == humanBoard.getPosition(CYG, CXG - 1)) {
+                                           System.out.println("up");
+                                           CXG = TCX - 1;
+                                           CYG = TCY;
+                                       }
+                                   }
+                                   if(((CYG + 1) <= 9)) {
+                                       if (positionArrayList.get(index) == humanBoard.getPosition(CYG + 1, CXG)) {
+                                           System.out.println("right");
+                                           CXG = TCX;
+                                           CYG = TCY + 1;
+                                       }
+                                   }
+                                   if(((CYG - 1) > -1)) {
+                                       if (positionArrayList.get(index) == humanBoard.getPosition(CYG - 1, CXG)) {
+                                           System.out.println("left");
+                                           CXG = TCX;
+                                           CYG = TCY - 1;
+                                       }
+                                   }
+                                   positionArrayList.removeAll(positionArrayList);
+                               }
+                               if(TCY != -1) {
+                                   attack = computerBoard.attack(CYG, CXG, humanBoard); //attack
+                               }
+                               else {
+                                   attack = 2;
+                               }
 
                             }
                         } catch (IndexOutOfBoundsException err1) { //catch index out of bounds, do nothing
@@ -261,6 +303,15 @@ public class BattleshipRunner extends Application {
                     else {
                         TCX = -1;
                         TCY = -1;
+                    }
+
+                    if(humanBoard.getAddPiece() == 0) {
+                        isWin.setText("Computer is the winner!"); //print winner message
+                        nextScene.setText("Play Again!"); //change text to Play Again. Refer to line 471
+                        rows.setDisable(true);
+                        columns.setDisable(true);
+                        nextScene.setDisable(false); //enable button
+                        submit.setDisable(true); //disable button
                     }
 
 

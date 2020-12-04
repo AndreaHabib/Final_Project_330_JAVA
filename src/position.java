@@ -137,4 +137,16 @@ public class position extends Rectangle {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "position{" +
+                "guess=" + guess +
+                ", hitOrMiss=" + hitOrMiss +
+                ", occupied=" + occupied +
+                ", x=" + x +
+                ", y=" + y +
+                ", board=" + board +
+                '}';
+    }
 }
