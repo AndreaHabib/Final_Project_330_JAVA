@@ -172,7 +172,6 @@ public class BattleshipRunner extends Application {
             if(computerBoard.getAddPiece() != 0 && turn == 0) { //same process for computer as human, except input is random generated
                     turn = 1; //Computer only attacks when successful, therefore turn = 1.
                     int attack = 0, choose = 0;
-                    int cont = 0;
                     if(DIFFICULTY == 2) {
                         do {
                             try {
